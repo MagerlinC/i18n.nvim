@@ -1,4 +1,4 @@
-# i18n lookup for Nvim
+# i18n lookup for NeoVim
 
 This plugins provides a simply way to look up definitions for language keyed strings in your codebase.
 It does so by simple key look up in the configured translation files.
