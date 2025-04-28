@@ -26,14 +26,12 @@ return {
 
 For example, if you have a translation file `en.json` like this:
 ```json
-// en.json
 {
   "hello": "Hello",
 }
 ```
 And you set up the configuration like this:
 ```lua
-// init.lua, or as part of your plugin config
 require('i18n').setup({
   {
     filePath = 'path/to/your/en.json',
