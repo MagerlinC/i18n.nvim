@@ -10,7 +10,7 @@ This is intended to be used with setups like i18next and accompanying localizati
 To set up the plugin, require the packager and supply a list of language configurations (filePath, keymap) to the setup function like so (example using Lazy):
 ```lua
 return {
-	"magerlinc/i18n.nvim",
+  "magerlinc/i18n.nvim",
   require('i18n').setup({
     {
       filePath = 'path/to/your/translations.json',
