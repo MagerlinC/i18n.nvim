@@ -5,20 +5,23 @@ It does so by simple key look up in the configured translation files.
 
 This is intended to be used with setups like i18next and accompanying localization/en.json, localization/da.json, etc. files.
 
-## Configuration
+## Installation & Configuration
 
-To set up the plugin, supply a list of language configurations (filePath, keymap) to the setup function like so:
+To set up the plugin, require the packager and supply a list of language configurations (filePath, keymap) to the setup function like so (example using Lazy):
 ```lua
-require('i18n').setup({
-  {
-    filePath = 'path/to/your/translations.json',
-    keymap = 'your-keymap'
-  },
-  {
-    filePath = 'path/to/your/other-translations.json',
-    keymap = 'your-other-keymap'
-  }
-})
+return {
+	"magerlinc/i18n.nvim",
+  require('i18n').setup({
+    {
+      filePath = 'path/to/your/translations.json',
+      keymap = 'your-keymap'
+    },
+    {
+      filePath = 'path/to/your/other-translations.json',
+      keymap = 'your-other-keymap'
+    }
+  })
+}
 ```
 
 For example, if you have a translation file `en.json` like this:
