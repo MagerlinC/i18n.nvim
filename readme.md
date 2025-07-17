@@ -45,6 +45,15 @@ You can press `<leader>en` while your cursor is anywhere inside the string "hell
 const greeting = t('hello'); // pressing <leader>en while your cursor is in the string will open the en.json file and go to the "hello" key
 ```
 
+## Creating translation entries
+This plugin also supports passing a creation script and a keymap to call it:
+```lua
+require('i18n').setup({
+  {
+	creationKeymap = "<leader>gl",
+	creationCmd = "yarn genlabel",
+  }
+})
+```
 
-
-
+This will allow you to press `<leader>gl` to run the given shell command, which can fx. run a script which generates the translation entries for you. 
