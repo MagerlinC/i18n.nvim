@@ -1,3 +1,5 @@
+---@class Module
+---@field langs LanguageConfig[]
 local M = {}
 
 ---@class LanguageConfig
@@ -6,10 +8,19 @@ local M = {}
 
 ---@class Options
 ---@field langs LanguageConfig[]
+---@field creationKeymap string
+---@field creationCmd string
 
---- Map over M.langs and set up keymaps
-local setup_keymaps = function()
-	for _, lang in ipairs(M.langs) do
+---@param opts Options
+M.setup = function(opts)
+	M.langs = opts.langs
+	vim.keymap.set(
+		"n",
+		opts.creationKeymap,
+		"<cmd>lua require('i18n').create_translation_entry('" .. opts.creationCmd .. "')<cr>",
+		{ noremap = true, silent = true }
+	)
+	for _, lang in ipairs(opts.langs) do
 		vim.keymap.set(
 			"n",
 			lang.keymap,
@@ -17,12 +28,6 @@ local setup_keymaps = function()
 			{ noremap = true, silent = true }
 		)
 	end
-end
-
----@param opts Options
-M.setup = function(opts)
-	M.langs = opts.langs or {}
-	setup_keymaps()
 end
 
 local function char_is_quote(c)
@@ -77,6 +82,17 @@ M.go_to_translation = function(filePath)
 	-- Search for token in file in new buffer
 	local searchWord = "\\\\<" .. token .. "\\\\>"
 	vim.cmd('edit +/"' .. searchWord .. '" ' .. filePath)
+end
+
+---@param creationCmd string
+M.create_translation_entry = function(creationCmd)
+	local token = get_string_at_cursor()
+	if token == "" then
+		vim.notify("No string found at cursor", vim.log.levels.WARN)
+		return
+	end
+	os.execute(creationCmd .. " " .. token .. " > /dev/null 2>&1")
+	vim.notify("Translation entry created for: " .. token, vim.log.levels.INFO)
 end
 
 return M
